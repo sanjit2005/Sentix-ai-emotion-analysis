@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moodline | AI Emotion Analysis</title>
+  <meta name="description" content="Moodline understands the emotion behind your words with AI-powered sentence analysis.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23131418'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Arial' font-size='32' font-weight='800' fill='%23fffdf8'%3EM%3C/text%3E%3C/svg%3E">
+
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <span class="ambient-line line-a"></span>
+    <span class="ambient-line line-b"></span>
+    <span class="ambient-grid"></span>
+  </div>
+
+  <div class="app-shell">
+    <header class="site-header" aria-label="Sentix">
+      <a class="brand" href="/" aria-label="Sentix home">
+        <span class="brand-symbol" aria-hidden="true">S</span>
+        <span class="brand-copy">
+          <span class="brand-name">Sentix</span>
+          <span class="brand-note">Sentiment Intelligence System</span>
+        </span>
+      </a>
+
+      <div class="model-status" role="status" aria-live="polite">
+        <span class="status-dot" id="statusDot" aria-hidden="true"></span>
+        <span id="serverStatusText">Connecting to model</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <p class="eyebrow">AI mood analysis</p>
+          <h1 id="heroTitle">Sentix understands the emotion behind your words.</h1>
+          <p class="hero-lede">
+            Write a sentence and get a clear emotional readout from the existing BiGRU model, including confidence and a full mood breakdown.
+          </p>
+
+          <section class="analysis-card" aria-labelledby="inputTitle">
+            <div class="input-header">
+              <div>
+                <p class="eyebrow">Sentence input</p>
+                <h2 id="inputTitle">What should Sentix read?</h2>
+              </div>
+              <span class="char-count"><span id="charCount">0</span> / 2000</span>
+            </div>
+
+            <form id="analysisForm" class="analysis-form">
+              <label class="sr-only" for="textInput">Sentence to analyze</label>
+              <textarea
+                id="textInput"
+                maxlength="2000"
+                rows="7"
+                placeholder="Try: I can't believe we finally pulled this off after all those late nights."
+                autocomplete="off"
+              ></textarea>
+
+              <div class="input-actions">
+                <p class="input-hint">Press Ctrl or Cmd + Enter to analyze.</p>
+                <button id="analyzeBtn" class="btn-primary" type="submit" disabled>
+                  <span class="btn-spinner" aria-hidden="true"></span>
+                  <span class="btn-label">Analyze mood</span>
+                  <span class="btn-icon" aria-hidden="true">-></span>
+                </button>
+              </div>
+            </form>
+
+            <p class="error-msg" id="errorMsg" role="alert" hidden></p>
+          </section>
+        </div>
+
+        <aside class="insight-panel" aria-label="Emotion analysis preview">
+          <div class="signal-ring" id="signalRing" aria-hidden="true">
+            <div class="signal-core" id="orb">
+              <span id="orbEmoji">AI</span>
+            </div>
+          </div>
+          <div class="signal-copy">
+            <span class="panel-kicker">Live inference</span>
+            <strong id="previewTitle">Ready to analyze</strong>
+            <span id="previewText">Enter a sentence to reveal its dominant mood signature.</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="result-report" id="resultSection" aria-labelledby="resultTitle" hidden>
+        <div class="result-hero">
+          <p class="eyebrow">Detected emotion</p>
+          <div class="emotion-line">
+            <span class="emotion-avatar" id="emotionEmoji" aria-hidden="true">🙂</span>
+            <div>
+              <h2 id="resultTitle"><span id="emotionWord">Neutral</span></h2>
+              <p id="confidenceText">0.0% confidence</p>
+            </div>
+          </div>
+          <blockquote class="echoed-text" id="echoedText"></blockquote>
+        </div>
+
+        <div class="confidence-panel">
+          <p class="eyebrow">Confidence meter</p>
+          <div class="meter-wrap">
+            <div class="confidence-meter" id="confidenceMeter" role="img" aria-label="Confidence score">
+              <span id="meterValue">0%</span>
+            </div>
+          </div>
+          <p id="resultSummary" class="result-summary">Sentix will summarize the model signal here after analysis.</p>
+        </div>
+
+        <div class="breakdown-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Emotion spectrum</p>
+              <h2>Probability breakdown</h2>
+            </div>
+            <span class="panel-kicker">Model output</span>
+          </div>
+          <div class="bars" id="barsContainer"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
