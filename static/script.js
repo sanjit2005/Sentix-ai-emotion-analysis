@@ -111,7 +111,7 @@
         const detail = body && body.detail
           ? typeof body.detail === "string"
             ? body.detail
-            : "Moodline could not process that sentence."
+            : "Sentix could not process that sentence."
           : `Request failed (${res.status}).`;
         throw new Error(detail);
       }
@@ -132,7 +132,7 @@
     el.orb.classList.add("thinking");
     el.orbEmoji.textContent = "AI";
     el.previewTitle.textContent = "Reading signal";
-    el.previewText.textContent = "Moodline is comparing the sentence against the model's learned emotion patterns.";
+    el.previewText.textContent = "Sentix is comparing the sentence against the model's learned emotion patterns.";
     syncButtonState();
   }
 
